@@ -2,25 +2,24 @@ package com.iut.poukamon.model.menu;
 
 import com.iut.poukamon.model.ButtonState;
 import com.iut.poukamon.model.Model;
+import com.iut.poukamon.model.ModelTemplate;
 import com.iut.poukamon.model.game.Game;
 
 /**
  * @author Chlorodatafile
  */
 
-public class Menu {
-    Model model;
+public class Menu extends ModelTemplate {
     ButtonState stateButtonPlay;
     ButtonState stateButtonQuit;
 
-    public Menu(Model model) {
+    public Menu() {
         stateButtonPlay = ButtonState.NONE;
         stateButtonQuit = ButtonState.NONE;
-        this.model = model;
     }
 
     public void newGame() {
-        model.setGame(new Game(2));
+        model.setActiveModel(new Game(2));
     }
 
     public ButtonState getStateButtonPlay() {

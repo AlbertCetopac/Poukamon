@@ -1,26 +1,26 @@
 package com.iut.poukamon.model.game;
 
 import com.iut.poukamon.model.Model;
+import com.iut.poukamon.model.ModelTemplate;
 
 /**
  * @author Chlorodatafile
  */
-public class Game {
+public class Game extends ModelTemplate {
 
     byte turn;
     byte playerNumber;
 
-    public Game(int playerNumber) {
+    public Game(int nPlayer) {
+        this.playerNumber=(byte)nPlayer;
         this.turn=0;
-        this.playerNumber=(byte)playerNumber;
         beginTurn();
-        Model.awake();
     }
 
     /**
      * Getters
      */
-    public int getPlayerNumber() {
+    public byte getPlayerNumber() {
         return playerNumber;
     }
 

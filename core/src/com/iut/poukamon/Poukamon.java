@@ -6,9 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.iut.poukamon.controller.ControllerTemplate;
-import com.iut.poukamon.controller.MainController;
+import com.iut.poukamon.controller.Controller;
 import com.iut.poukamon.controller.menu.MenuController;
 import com.iut.poukamon.model.Model;
+import com.iut.poukamon.model.menu.Menu;
 import com.iut.poukamon.view.ViewPanel;
 import com.iut.poukamon.view.menu.MainMenuPanel;
 
@@ -25,6 +26,7 @@ public class Poukamon extends ApplicationAdapter {
 
     SpriteBatch surface;
     ViewPanel panel;
+    Model model;
     Texture background;
 
     @Override
@@ -32,10 +34,10 @@ public class Poukamon extends ApplicationAdapter {
 
         // On génére le singleton et le model
         main = this;
-        Model model = new Model();
+        model = new Model();
 
         // On gère les inputs
-        Gdx.input.setInputProcessor(new MainController(model, this));
+        Gdx.input.setInputProcessor(new Controller(model, this));
 
         // On genere l'affichage
         surface = new SpriteBatch();
@@ -44,13 +46,16 @@ public class Poukamon extends ApplicationAdapter {
 
         // On lance le panel du menu et on active ses controllers
         setPanel(new MainMenuPanel());
-        MainController.setControllers(new ControllerTemplate[]{new MenuController()});
+        model.setActiveModel(new Menu());
+        Controller.setControllers(new ControllerTemplate[]{new MenuController()});
+        
     }
 
     @Override
     public void render() {
         Gdx.gl.glClearColor(BACKGROUND_RED, BACKGROUND_GREEN, BACKGROUND_BLUE, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        model.update();
         surface.begin();
         surface.draw(background, 0, 0);
         panel.render(surface);

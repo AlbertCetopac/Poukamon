@@ -7,12 +7,12 @@ import com.iut.poukamon.model.Model;
 /**
  * @author Chlorodatafile
  */
-public class MainController implements InputProcessor {
+public class Controller implements InputProcessor {
 
-    private static MainController main;
+    private static Controller main;
     private ControllerTemplate[] controllers;
 
-    public MainController(Model nModel, Poukamon nView) {
+    public Controller(Model nModel, Poukamon nView) {
         main = this;
         ControllerTemplate.initialise(nModel, nView);
         controllers = new ControllerTemplate[0];

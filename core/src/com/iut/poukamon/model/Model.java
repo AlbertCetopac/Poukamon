@@ -9,15 +9,26 @@ import com.iut.poukamon.model.menu.Menu;
 public class Model {
     private static boolean wait = false;
 
-    // Submodel instance
-    private Game game;
-    private Menu menu;
+    private ModelTemplate activeModel;
 
     /**
      * Constructor.
      */
     public Model() {
-        menu = new Menu(this);
+        ModelTemplate.set(this);
+    }
+
+    public void update() {
+        if (!wait && activeModel!=null)
+            activeModel.update();
+    }
+
+    public void setActiveModel(ModelTemplate modelTemplate) {
+        if (activeModel!=null)
+            activeModel.dispose();
+        activeModel=modelTemplate;
+        modelTemplate.start();
+        awake();
     }
 
     public static boolean isWaiting() {
@@ -33,14 +44,10 @@ public class Model {
     }
 
     public Game getGame() {
-        return game;
-    }
-
-    public void setGame(Game game) {
-        this.game = game;
+        return (Game)activeModel;
     }
 
     public Menu getMenu() {
-        return menu;
+        return (Menu)activeModel;
     }
 }
