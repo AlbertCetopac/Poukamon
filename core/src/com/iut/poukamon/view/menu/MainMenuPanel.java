@@ -20,7 +20,7 @@ public class MainMenuPanel extends ViewPanel implements MenuConstant {
 
     @Override
     public void start() {
-        combat=new Texture(Gdx.files.internal("img/combat.jpg"));
+        combat=new Texture(Gdx.files.internal("img/combat.png"));
     }
 
     @Override
