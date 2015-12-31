@@ -29,6 +29,16 @@ public class Surface extends SpriteBatch {
         super.draw(texture, oX+percentX*screenPercent, oY+percentY*screenPercent, texture.getWidth(), texture.getHeight());
     }
 
+    public void draw(Texture texture) {
+        int w = texture.getWidth(), h=texture.getHeight();
+        super.draw(texture, oX,oY, 0, 0, w,h,screenCoef,screenCoef,0,0,0,w,h,false,false);
+    }
+
+    public void draw(TextureRegion region) {
+        int w = region.getRegionWidth(), h=region.getRegionHeight();
+        super.draw(region, oX,oY, 0,0,w,h,screenCoef,screenCoef,0);
+    }
+
     @Override
     public void draw(Texture texture, float percentX, float percentY) {
         int w = texture.getWidth(), h=texture.getHeight();
