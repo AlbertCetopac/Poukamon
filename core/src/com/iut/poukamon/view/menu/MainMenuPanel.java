@@ -1,5 +1,7 @@
 package com.iut.poukamon.view.menu;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.iut.poukamon.view.ViewPanel;
 import com.iut.tools.Surface;
@@ -9,6 +11,8 @@ import com.iut.tools.Surface;
  */
 public class MainMenuPanel extends ViewPanel implements MenuConstant {
 
+    Texture combat;
+
     @Override
     public void sendOrder(char code, char act) {
 
@@ -16,12 +20,12 @@ public class MainMenuPanel extends ViewPanel implements MenuConstant {
 
     @Override
     public void start() {
-
+        combat=new Texture(Gdx.files.internal("img/combat.jpg"));
     }
 
     @Override
     public void render(Surface surface) {
-
+        surface.draw(combat);
     }
 
     @Override
