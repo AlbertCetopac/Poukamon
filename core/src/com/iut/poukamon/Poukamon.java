@@ -89,7 +89,7 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
         ViewPanel.linkToModel(model, this);
 
         //on crée l'image combat
-        combat=new Texture(Gdx.files.internal("img/combat.jpg"));
+        combat=new Texture(Gdx.files.internal("img/combat.png"));
 
     }
 
