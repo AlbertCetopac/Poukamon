@@ -14,6 +14,7 @@ import com.iut.poukamon.model.menu.Menu;
 import com.iut.poukamon.view.ViewConstant;
 import com.iut.poukamon.view.ViewPanel;
 import com.iut.poukamon.view.menu.MainMenuPanel;
+import com.iut.tools.Surface;
 
 /**
  * @author Chlorodatafile
@@ -35,12 +36,11 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
     private static Poukamon main;
 
     private boolean __setted;
-    private float screenPercent, screenCoef;
     private int xS, yS;
     private Texture mask;
     private boolean isVertical;
 
-    private SpriteBatch surface;
+    private Surface surface;
     private ViewPanel panel;
     private Model model;
 
@@ -92,8 +92,8 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         model.update();
         surface.begin();
-        panel.render(surface, screenPercent, screenCoef, xS, yS);
-        surface.draw(mask, 0, 0);
+        panel.render(surface);
+        surface.absoluteDraw(mask, 0, 0);
         surface.end();
     }
 
@@ -101,9 +101,6 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
     public void resize(int width, int height) {
 
         isVertical=width>=height;
-        screenPercent = (isVertical?height:width)/100f;
-        screenCoef = (isVertical?height:width)/SCREEN_REFERENCE_SIZE;
-        System.out.println(screenCoef);
 
         refreshMask(width, height);
 
@@ -111,7 +108,10 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
 
         if (surface!=null)
             surface.dispose();
-        surface = new SpriteBatch();
+        if (isVertical)
+            surface = new Surface(xS,yS,height/100f,height/SCREEN_REFERENCE_SIZE);
+        else
+            surface = new Surface(xS,yS,width/100f,width/SCREEN_REFERENCE_SIZE);
 
         if (!__setted&&model!=null)
             init();

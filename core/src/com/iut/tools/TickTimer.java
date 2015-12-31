@@ -1,4 +1,4 @@
-package com.iut.poukamon.model;
+package com.iut.tools;
 
 /**
  * @author Chlorodatafile

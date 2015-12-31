@@ -3,6 +3,7 @@ package com.iut.poukamon.view;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.iut.poukamon.Poukamon;
 import com.iut.poukamon.model.Model;
+import com.iut.tools.Surface;
 
 /**
  * @author Chlorodatafile
@@ -26,7 +27,7 @@ public abstract class ViewPanel implements ViewConstant {
 
     public abstract void dispose();
 
-    public abstract void render(SpriteBatch surface, float screenPercent, float screenCoef, int xStart, int yStart);
+    public abstract void render(Surface surface);
 
     protected abstract void refresh(SpriteBatch surface);
 
