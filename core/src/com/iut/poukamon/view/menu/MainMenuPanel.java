@@ -19,7 +19,7 @@ public class MainMenuPanel extends ViewPanel implements MenuConstant {
     }
 
     @Override
-    public void render(SpriteBatch surface) {
+    public void render(SpriteBatch surface, float screenPercent, float screenCoef, int xStart, int yStart) {
 
     }
 

@@ -13,4 +13,6 @@ public interface ViewConstant {
 
     int SCREEN_WIDTH = 1024;
     int SCREEN_HEIGHT = 768;
+
+    float SCREEN_REFERENCE_SIZE = SCREEN_WIDTH<SCREEN_HEIGHT ? SCREEN_WIDTH : SCREEN_HEIGHT;
 }

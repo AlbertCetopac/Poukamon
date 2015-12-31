@@ -26,7 +26,7 @@ public abstract class ViewPanel implements ViewConstant {
 
     public abstract void dispose();
 
-    public abstract void render(SpriteBatch surface);
+    public abstract void render(SpriteBatch surface, float screenPercent, float screenCoef, int xStart, int yStart);
 
     protected abstract void refresh(SpriteBatch surface);
 

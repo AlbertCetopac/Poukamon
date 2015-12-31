@@ -3,6 +3,7 @@ package com.iut.poukamon;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.iut.poukamon.controller.ControllerTemplate;
@@ -10,6 +11,7 @@ import com.iut.poukamon.controller.Controller;
 import com.iut.poukamon.controller.menu.MenuController;
 import com.iut.poukamon.model.Model;
 import com.iut.poukamon.model.menu.Menu;
+import com.iut.poukamon.view.ViewConstant;
 import com.iut.poukamon.view.ViewPanel;
 import com.iut.poukamon.view.menu.MainMenuPanel;
 
@@ -17,17 +19,57 @@ import com.iut.poukamon.view.menu.MainMenuPanel;
  * @author Chlorodatafile
  */
 
-public class Poukamon extends ApplicationAdapter {
+public class Poukamon extends ApplicationAdapter implements ViewConstant {
+
+    private void init() {
+        __setted=true;
+        setPanel(new MainMenuPanel());
+        model.setActiveModel(new Menu());
+        Controller.setControllers(new ControllerTemplate[]{new MenuController()});
+    }
+
     final static float BACKGROUND_RED = 1;
     final static float BACKGROUND_GREEN = 1;
     final static float BACKGROUND_BLUE = 1;
 
     private static Poukamon main;
 
-    SpriteBatch surface;
-    ViewPanel panel;
-    Model model;
-    Texture background;
+    private boolean __setted;
+    private float screenPercent, screenCoef;
+    private int xS, yS;
+    private Texture mask;
+    private boolean isVertical;
+
+    private SpriteBatch surface;
+    private ViewPanel panel;
+    private Model model;
+
+    private void refreshMask(int width, int height) {
+        if (mask!=null)
+            mask.dispose();
+
+        xS=yS=0;
+
+        int x, y, mPos;
+        if (isVertical) {
+            mPos=(xS=x=Math.round((width-height)/2))+height;
+            y=height;
+        } else {
+            x=width;
+            mPos=(yS=y=Math.round((height-width)/2))+width;
+        }
+
+        Pixmap pixmap = new Pixmap(width,height, Pixmap.Format.RGBA4444);
+        pixmap.setColor(0,0,0,1);
+        pixmap.fillRectangle(0, 0, x, y);
+        if (isVertical)
+            pixmap.fillRectangle(mPos,0,x,y);
+        else
+            pixmap.fillRectangle(0,mPos,x,y);
+
+        mask = new Texture(pixmap);
+        pixmap.dispose();
+    }
 
     @Override
     public void create() {
@@ -40,15 +82,8 @@ public class Poukamon extends ApplicationAdapter {
         Gdx.input.setInputProcessor(new Controller(model, this));
 
         // On genere l'affichage
-        surface = new SpriteBatch();
-        background = new Texture(Gdx.files.internal("badlogic.jpg"));
         ViewPanel.linkToModel(model, this);
 
-        // On lance le panel du menu et on active ses controllers
-        setPanel(new MainMenuPanel());
-        model.setActiveModel(new Menu());
-        Controller.setControllers(new ControllerTemplate[]{new MenuController()});
-        
     }
 
     @Override
@@ -57,9 +92,29 @@ public class Poukamon extends ApplicationAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         model.update();
         surface.begin();
-        surface.draw(background, 0, 0);
-        panel.render(surface);
+        panel.render(surface, screenPercent, screenCoef, xS, yS);
+        surface.draw(mask, 0, 0);
         surface.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+        isVertical=width>=height;
+        screenPercent = (isVertical?height:width)/100f;
+        screenCoef = (isVertical?height:width)/SCREEN_REFERENCE_SIZE;
+        System.out.println(screenCoef);
+
+        refreshMask(width, height);
+
+        Gdx.gl.glViewport(0, 0, width, height);
+
+        if (surface!=null)
+            surface.dispose();
+        surface = new SpriteBatch();
+
+        if (!__setted&&model!=null)
+            init();
     }
 
     public ViewPanel getPanel() {
