@@ -35,8 +35,12 @@ public class Surface extends SpriteBatch {
     }
 
     public void draw(TextureRegion region) {
-        int w = region.getRegionWidth(), h=region.getRegionHeight();
-        super.draw(region, oX,oY, 0,0,w,h,screenCoef,screenCoef,0);
+        super.draw(region, oX,oY, 0,0,region.getRegionWidth(),region.getRegionHeight(),screenCoef,screenCoef,0);
+    }
+
+    public void draw(Texture texture, float scale) {
+        int w = texture.getWidth(), h=texture.getHeight();
+        super.draw(texture, oX,oY, 0, 0, w,h,scale*=screenCoef,scale,0,0,0,w,h,false,false);
     }
 
     @Override
@@ -47,8 +51,7 @@ public class Surface extends SpriteBatch {
 
     @Override
     public void draw(TextureRegion region, float percentX, float percentY) {
-        int w = region.getRegionWidth(), h=region.getRegionHeight();
-        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0,0,w,h,screenCoef,screenCoef,0);
+        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0,0,region.getRegionWidth(), region.getRegionHeight(),screenCoef,screenCoef,0);
     }
 
     public void draw(Texture texture, float percentX, float percentY, float scale) {
@@ -57,8 +60,7 @@ public class Surface extends SpriteBatch {
     }
 
     public void draw(TextureRegion region, float percentX, float percentY, float scale) {
-        int w = region.getRegionWidth(), h=region.getRegionHeight();
-        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0, 0, w,h,scale*=screenCoef,scale,0);
+        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0, 0, region.getRegionWidth(), region.getRegionHeight(),scale*=screenCoef,scale,0);
     }
 
     @Override
@@ -69,8 +71,7 @@ public class Surface extends SpriteBatch {
 
     @Override
     public void draw(TextureRegion region, float percentX, float percentY, float scale, float rotation) {
-        int w = region.getRegionWidth(), h=region.getRegionHeight();
-        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0, 0, w,h,scale*=screenCoef,scale,rotation);
+        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0, 0, region.getRegionWidth(),region.getRegionHeight(),scale*=screenCoef,scale,rotation);
     }
 
     public void draw(Texture texture, float percentX, float percentY, float scale, boolean flipY) {
@@ -79,8 +80,7 @@ public class Surface extends SpriteBatch {
     }
 
     public void draw(TextureRegion region, float percentX, float percentY, float scale, boolean flipY) {
-        int w = region.getRegionWidth(), h=region.getRegionHeight();
-        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0, 0, w,h,scale*=screenCoef,flipY?-scale:scale,0);
+        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0, 0, region.getRegionWidth(),region.getRegionHeight(),scale*=screenCoef,flipY?-scale:scale,0);
     }
 
     public void draw(Texture texture, float percentX, float percentY, float scale, float rotation, boolean flipY) {
@@ -89,8 +89,7 @@ public class Surface extends SpriteBatch {
     }
 
     public void draw(TextureRegion region, float percentX, float percentY, float scale, float rotation, boolean flipY) {
-        int w = region.getRegionWidth(), h=region.getRegionHeight();
-        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0, 0, w,h,scale*=screenCoef,flipY?-scale:scale,rotation);
+        super.draw(region, oX+percentX*screenPercent, oY+percentY*screenPercent, 0, 0, region.getRegionWidth(),region.getRegionHeight(),scale*=screenCoef,flipY?-scale:scale,rotation);
     }
 
 }

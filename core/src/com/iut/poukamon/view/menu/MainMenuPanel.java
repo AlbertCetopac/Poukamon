@@ -25,7 +25,7 @@ public class MainMenuPanel extends ViewPanel implements MenuConstant {
 
     @Override
     public void render(Surface surface) {
-        surface.draw(combat);
+        surface.draw(combat,0.5f);
     }
 
     @Override
