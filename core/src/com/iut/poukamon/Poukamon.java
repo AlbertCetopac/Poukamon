@@ -44,6 +44,8 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
     private ViewPanel panel;
     private Model model;
 
+    private Texture combat;
+
     private void refreshMask(int width, int height) {
         if (mask!=null)
             mask.dispose();
@@ -62,12 +64,14 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
         Pixmap pixmap = new Pixmap(width,height, Pixmap.Format.RGBA4444);
         pixmap.setColor(0,0,0,1);
         pixmap.fillRectangle(0, 0, x, y);
+
         if (isVertical)
             pixmap.fillRectangle(mPos,0,x,y);
         else
             pixmap.fillRectangle(0,mPos,x,y);
 
         mask = new Texture(pixmap);
+
         pixmap.dispose();
     }
 
@@ -83,6 +87,9 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
 
         // On genere l'affichage
         ViewPanel.linkToModel(model, this);
+
+        //on crée l'image combat
+        combat=new Texture(Gdx.files.internal("img/combat.jpg"));
 
     }
 
