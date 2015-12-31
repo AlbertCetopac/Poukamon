@@ -44,8 +44,6 @@ public class Poukamon extends ApplicationAdapter implements ViewConstant {
     private ViewPanel panel;
     private Model model;
 
-    private Texture combat;
-
     private void refreshMask(int width, int height) {
         if (mask!=null)
             mask.dispose();
